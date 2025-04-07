@@ -6,7 +6,11 @@ class Todo{
 
     _setEventListeners() {
         this._todoCheckboxEl.addEventListener("change", () => {
-            this._todoElement.classList.toggle("todo_completed");
+            this._data.completed = !this._data.completed;
+        });
+
+        this._todoDeleteBtn.addEventListener("click", () => {
+            this._onDeleteButtonClick();
         });
     }
 
@@ -18,6 +22,27 @@ class Todo{
         this._todoLabel.setAttribute("for", `todo-${this._data.id}`);
     }
 
+    _generateDeleteButtonEl() {
+        this._todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
+    }
+
+    _onDeleteButtonClick() {
+        this._todoElement.remove();
+    }
+
+    _formatDueDate(dateString) {
+        const dueDate = new Date(dateString);
+        if (!isNaN(dueDate)) {
+            return dueDate.toLocaleString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+            });
+        } else {
+            return "No due date"; // If the date is invalid
+        }
+    }
+
     getView() {
         this._todoElement = this._templateElement.content
             .querySelector(".todo")
@@ -25,11 +50,13 @@ class Todo{
 
         const todoNameEl = this._todoElement.querySelector(".todo__name");
         const todoDate = this._todoElement.querySelector(".todo__date");
-        const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
         
+
         todoNameEl.textContent = this._data.name;
+        todoDate.textContent = `Due: ${this._formatDueDate(this._data.date)}`;
         
         this._generateCheckBoxEl();
+        this._generateDeleteButtonEl();
         this._setEventListeners();
 
         return this._todoElement;
