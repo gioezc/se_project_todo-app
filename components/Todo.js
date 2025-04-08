@@ -39,7 +39,7 @@ class Todo{
                 day: "numeric",
             });
         } else {
-            return "No due date"; // If the date is invalid
+            return ""; // If the date is invalid
         }
     }
 
