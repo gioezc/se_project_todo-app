@@ -11,8 +11,6 @@ import TodoCounter from '../components/TodoCounter.js';
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopupEl = document.querySelector("#add-todo-popup");
 const addTodoForm = document.forms["add-todo-form"];
-const addTodoCloseBtn = addTodoPopupEl.querySelector(".popup__close");
-const todosList = document.querySelector(".todos__list");
 
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 
@@ -29,7 +27,7 @@ const addTodoPopup = new PopupWithForm({
     const todoData = { name, date: dateObj, id };
 
     const todoElement = renderTodo(todoData);
-    todosList.append(todoElement);
+    section.append(todoElement);
 
     todoCounter.updateTotal(true);
 
@@ -70,10 +68,6 @@ const section = new Section({
 
 addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
-});
-
-addTodoCloseBtn.addEventListener("click", () => {
-  addTodoPopup.close();
 });
 
 section.renderItems();
