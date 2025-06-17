@@ -27,7 +27,7 @@ const addTodoPopup = new PopupWithForm({
     const todoData = { name, date: dateObj, id };
 
     const todoElement = renderTodo(todoData);
-    section.append(todoElement);
+    section.addItem(todoElement);
 
     todoCounter.updateTotal(true);
 
